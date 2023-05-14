@@ -95,5 +95,3 @@ root
   > Setup Git for local project  
   > ```git config user.name "your_name_here"```  
   >```git config user.email your_email@gmail.com```
-
-## <span style="color: #3498db">Add carousel section</span>
