@@ -1,24 +1,24 @@
 # <span style="color: #2980b9">Post UI</span>
 
 ## <span style="color: #3498db">Node Package Manager -> npm vs yarn</span>
-    |                                   |           npm            |                    yarn |
-    | :-------------------------------- | :----------------------: | ----------------------: |
-    | Install global (can use anywhere) |     npm i -g package     | yarn global add package |
-    | Install packages (package.json)   |          npm i           |                    yarn |
-    | Add new package for prod          |      npm i package       |        yarn add package |
-    | Add new package for dev           | npm i --save-dev package |  yarn add --dev package |
-    | Remove package                    |  npm uninstall package   |     yarn remove package |
-    | Update package                    |    npm update package    |     yarn update package |
-    | Audit                             |        npm audit         |              yarn audit |
-    | Fix Audit Issues                  |      npm audit fix       |                     N/A |
+    |                                   | npm                      | yarn                    |
+    | :-------------------------------- | :----------------------- | :---------------------- |
+    | Install global (can use anywhere) | npm i -g package         | yarn global add package |
+    | Install packages (package.json)   | npm i                    | yarn                    |
+    | Add new package for prod          | npm i package            | yarn add package        |
+    | Add new package for dev           | npm i --save-dev package | yarn add --dev package  |
+    | Remove package                    | npm uninstall package    | yarn remove package     |
+    | Update package                    | npm update package       | yarn update package     |
+    | Audit                             | npm audit                | yarn audit              |
+    | Fix Audit Issues                  | npm audit fix            | N/A                     |
 
-     |                  |      npm      |       yarn |
-     | :--------------- | :-----------: | ---------: |
-     | dev              |  npm run dev  |   yarn dev |
+     |                  | npm           | yarn       |
+     | :--------------- | :------------ | :--------- |
+     | dev              | npm run dev   | yarn dev   |
      | build            | npm run build | yarn build |
-     | start            |   npm start   | yarn start |
-     | test             |   npm test    |  yarn test |
-     | list all scripts |    npm run    |   yarn run |
+     | start            | npm start     | yarn start |
+     | test             | npm test      | yarn test  |
+     | list all scripts | npm run       | yarn run   |
 
 ## <span style="color: #3498db">Module Bundler</span>
     > Sự khác nhau trong hoạt động của Webpack và  Vite
