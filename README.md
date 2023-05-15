@@ -144,3 +144,5 @@ root
 ## <span style="color: #3498db">237.Per-request config</span>
 - Tuỳ chỉnh mỗi request bằng cách thêm config bên trong file postApi.js
 
+## <span style="color: #3498db">238.Interceptors</span>
+- Là những hàm xử lý một số thứ khi gửi request hoặc nhận response
