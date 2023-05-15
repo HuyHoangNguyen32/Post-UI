@@ -146,3 +146,10 @@ root
 
 ## <span style="color: #3498db">238.Interceptors</span>
 - Là những hàm xử lý một số thứ khi gửi request hoặc nhận response
+
+## <span style="color: #3498db">239.Handle API errors</span>
+- Chỗ nào gọi API chỗ đó phải thực hiện `try…cat` → nếu không nó sẽ dừng lại tại chỗ bị lỗi cho dù đằng sau còn nhiều call api khác
+- Xử lý error cho từng request bằng `try…cat` trong `main.js` (file gọi API)
+- Xử lý common error bên trong file `axiosClient.js`
+- Thứ tự bắt lỗi và handle như sau
+    - `axiosClient.js` > `postApi.js` > `main.js`

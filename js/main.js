@@ -15,7 +15,10 @@ async function main() {
     };
     const data = await postApi.getAll(queryParams);
     console.log(data);
-  } catch (error) {}
+  } catch (error) {
+    console.log('get all failed', error)
+    // show modal, toast error
+  }
 
   await postApi.updateFormData({
     id: 'lea11ziflg8xoixq',
