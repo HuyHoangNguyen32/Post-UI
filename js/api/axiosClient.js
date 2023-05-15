@@ -11,7 +11,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    console.log('request interceptor', config);
+    // console.log('request interceptor', config);
 
     // Attach token to request if exists
     const accessToken = localStorage.getItem('access_token');
@@ -32,7 +32,7 @@ axiosClient.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    console.log('response interceptor', response);
+    // console.log('response interceptor', response);
     // transform data for all responses
     return response.data;
   },
