@@ -1,6 +1,6 @@
 # <span style="color: #2980b9">Post UI</span>
 
-## <span style="color: #3498db">Node Package Manager -> npm vs yarn</span>
+## <span style="color: #3498db">226.Node Package Manager -> npm vs yarn</span>
     |                                   | npm                      | yarn                    |
     | :-------------------------------- | :----------------------- | :---------------------- |
     | Install global (can use anywhere) | npm i -g package         | yarn global add package |
@@ -20,10 +20,10 @@
      | test             | npm test      | yarn test  |
      | list all scripts | npm run       | yarn run   |
 
-## <span style="color: #3498db">Module Bundler</span>
+## <span style="color: #3498db">227.Module Bundler</span>
     > Sự khác nhau trong hoạt động của Webpack và  Vite
 
-## <span style="color: #3498db">Setup vanilla js project using ViteJS</span>
+## <span style="color: #3498db">228.Setup vanilla js project using ViteJS</span>
   ```javascript
   # npm 6.x
     npm init vite@latest js-post-ui --template vanilla
@@ -55,7 +55,7 @@
 
   ```
 
-## <span style="color: #3498db">Config multi-page for ViteJS</span>
+## <span style="color: #3498db">229.Config multi-page for ViteJS</span>
 - Create `vite.config.js` with
   
   ```javascript
@@ -75,7 +75,7 @@
       })
   ``` 
 
-## <span style="color: #3498db">Public folder and CDN cache</span>
+## <span style="color: #3498db">230.Public folder and CDN cache</span>
 [What is a CDN](https://www.imperva.com/learn/performance/what-is-cdn-how-it-works/)
 
 ```javascript
@@ -87,7 +87,7 @@ root
 | |__ sitemap.xml
 ```
 
-## <span style="color: #3498db">Setup Git and deloy to Vercel</span>
+## <span style="color: #3498db">231.Setup Git and deloy to Vercel</span>
   > Setup Git for global project  
   > ```git config --global user.name "your_name_here"```  
   >```git config --global user.email your_email@gmail.com```
@@ -95,3 +95,70 @@ root
   > Setup Git for local project  
   > ```git config user.name "your_name_here"```  
   >```git config user.email your_email@gmail.com```
+
+
+## <span style="color: #3498db">232.Setup UI template</span>
+```javascript
+# clone base ui
+git clone https://github.com/paulnguyen-mn/post-ui-base
+```
+- Copy HTML : index.html add-edit-post.html post-detail.html
+- Copy CSS : all files in css to styles
+- Copy Images : all files in images
+
+## <span style="color: #3498db">233.Add Carousel section</span>
+- `git stash`
+- `git pull`
+- `git checkout -b feature/add-carousel`
+- `git stash pop`
+- `git add .`
+- `git commit -m "Commit Message"`
+- `git push origin ...`
+- `git checkout main`
+- `git pull`
+
+[Lorem Picsum](https://picsum.photos/)
+
+## <span style="color: #3498db">234.API Module Overview</span>
+```javascript
+root
+|__ js
+|  |__ api
+|      |__ axiosClient.js # or fetchClient.js
+|      |__ studentApi.js
+|      |__ postApi.js
+|      |__ `[resource]`Api.js
+|
+|__ index.html
+```
+
+## <span style="color: #3498db">235.Setup axiosClient</span>
+- Tạo axiosClient
+```javascript
+import axios from 'axios';
+
+const axiosClient = axios.create({
+  baseURL: 'https://js-post-api.herokuapp.com/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default axiosClient;
+```
+
+- Demo gọi API từ axios.default và axiosClient
+```javascript
+import axiosClient from './api/axiosClient';
+import axios from 'axios';
+
+console.log('hello from main.js');
+
+async function main() {
+  const response = await axiosClient.get('/posts'); // https://js-post-api.herokuapp.com/api/posts
+  // const response = await axios.get('/posts'); // http://localhost:5173/posts
+  console.log(response);
+}
+
+main();
+```
