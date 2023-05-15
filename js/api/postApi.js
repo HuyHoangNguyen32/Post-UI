@@ -30,12 +30,12 @@ const postApi = {
   },
 
   // Config headers
-  // updateFormData(data) {
-  //   const url = `/posts/${data.id}`;
-  //   return axiosClient.patch(url, data, {
-  //     headers: { 'Content-Type': 'multipart/form-data'}
-  //   });
-  // },
+  updateFormData(data) {
+    const url = `/posts/${data.id}`;
+    return axiosClient.patch(url, data, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  },
 
   remove(id) {
     const url = `/posts/${id}`;
