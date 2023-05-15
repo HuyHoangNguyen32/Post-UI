@@ -153,3 +153,17 @@ root
 - Xử lý common error bên trong file `axiosClient.js`
 - Thứ tự bắt lỗi và handle như sau
     - `axiosClient.js` > `postApi.js` > `main.js`
+
+## <span style="color: #3498db">240.Tree Shaking</span>
+- Tree Shaking : loại bỏ function không dùng đến khi tiến hành bundle ra product
+- Có 2 kiểu export và import đó là : `default` và `name`
+- Default :
+    - Khi import sẽ tường minh dễ hiểu hàm ở đâu và dùng để làm gì
+    - Tuy nhiên khi bundle sẽ kéo toàn bộ function bên trong export default vào code product gây dư thừa code không cần thiết
+    - Mỗi một file chỉ có thể có 1 export default
+    - Khi import dùng tên gì cũng được
+- Name :
+    - Khi export sẽ mất thời gian viết hơn xíu
+    - Trong một file có thể import bao nhiêu hàm cũng được
+    - Khi bundle có thể sử dụng Tree Shaking để loại bỏ hàm không dùng đến ra
+    - Khi import phải chính xác tên gọi của hàm khi export 
