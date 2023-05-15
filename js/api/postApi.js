@@ -1,6 +1,16 @@
 import axiosClient from './axiosClient';
 
 const postApi = {
+  // ! test error 1
+  // getAll(params) {
+  //   const url = '/posts';
+  //   return axiosClient.get(url, { params, baseURL: 'https://abc.com' });
+  // },
+  // ! test error 2
+  // getAll(params) {
+  //   const url = '/private/posts';
+  //   return axiosClient.get(url, { params });
+  // },
   getAll(params) {
     const url = '/posts';
     return axiosClient.get(url, { params });
