@@ -134,31 +134,9 @@ root
 
 ## <span style="color: #3498db">235.Setup axiosClient</span>
 - Tạo axiosClient
-```javascript
-import axios from 'axios';
-
-const axiosClient = axios.create({
-  baseURL: 'https://js-post-api.herokuapp.com/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-export default axiosClient;
-```
-
 - Demo gọi API từ axios.default và axiosClient
-```javascript
-import axiosClient from './api/axiosClient';
-import axios from 'axios';
 
-console.log('hello from main.js');
-
-async function main() {
-  const response = await axiosClient.get('/posts'); // https://js-post-api.herokuapp.com/api/posts
-  // const response = await axios.get('/posts'); // http://localhost:5173/posts
-  console.log(response);
-}
-
-main();
-```
+## <span style="color: #3498db">235.Setup API file</span>
+- Tạo postApi.js định nghĩa các phương thức của API
+- postApi.js này sẽ dùng base có trong file axiosClient.js
+- Gọi API từ sử dụng postApi.js ở trên
