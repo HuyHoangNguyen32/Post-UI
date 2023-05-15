@@ -167,3 +167,21 @@ root
     - Trong một file có thể import bao nhiêu hàm cũng được
     - Khi bundle có thể sử dụng Tree Shaking để loại bỏ hàm không dùng đến ra
     - Khi import phải chính xác tên gọi của hàm khi export 
+
+## <span style="color: #3498db">241.Render Post List</span>
+- Gọi API
+    - Sử dụng IFFE + async await
+    - Sử dụng try…cat
+    - Truyền data nhận được cho hàm render
+- Hàm render
+    - Kiểm tra dữ liệu đầu vào có phải mảng hoặc mảng rỗng không
+    - Lấy thẻ ul thông qua ID
+    - Duyệt qua từng phần tử của mảng
+        - Gọi tới hàm tạo li
+        - Nhét li vào trong ul
+- Hàm tạo li
+    - Sử dụng try cat
+    - Gọi tới template
+    - Lấy ra toàn bộ note trong template và gán nó vào li
+    - Lấy dữ liệu từng phần tử nhận được từ hàm render để gán cho nội dung li
+
