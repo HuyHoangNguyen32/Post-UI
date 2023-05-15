@@ -185,3 +185,7 @@ root
     - Lấy ra toàn bộ note trong template và gán nó vào li
     - Lấy dữ liệu từng phần tử nhận được từ hàm render để gán cho nội dung li
 
+## <span style="color: #3498db">242.dayjs - fallback image - truncate description</span>
+- Xử lý ngày tháng post sử dụng thư viện dayjs
+- Thêm xử lý khi ảnh gặp lỗi và không hiển thị được thì thay thể bằng ảnh khác
+- Viết hàm rút gọn description
