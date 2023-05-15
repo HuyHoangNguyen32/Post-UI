@@ -136,7 +136,11 @@ root
 - Tạo axiosClient
 - Demo gọi API từ axios.default và axiosClient
 
-## <span style="color: #3498db">235.Setup API file</span>
+## <span style="color: #3498db">236.Setup API file</span>
 - Tạo postApi.js định nghĩa các phương thức của API
 - postApi.js này sẽ dùng base có trong file axiosClient.js
 - Gọi API từ sử dụng postApi.js ở trên
+
+## <span style="color: #3498db">237.Per-request config</span>
+- Tuỳ chỉnh mỗi request bằng cách thêm config bên trong file postApi.js
+
