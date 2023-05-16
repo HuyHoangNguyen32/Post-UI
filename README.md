@@ -200,3 +200,7 @@ root
 - Lấy ra số trang đang đứng
 - Tính ra tổng số trang có
 - Enable / Disable prev btn và next btn
+- 
+## <span style="color: #3498db">245.Pagination - refetch data on page change</span>
+- - Hoàn thiện hàm `handleFilterChange` để tuỳ chỉnh param nhận được, ngoài ra hàm này cũng sẽ đóng vai trò gọi tới hàm render lại dữ liệu
+- Làm logic cho 2 hàm prev và next
