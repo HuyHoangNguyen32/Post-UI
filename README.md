@@ -189,3 +189,8 @@ root
 - Xử lý ngày tháng post sử dụng thư viện dayjs
 - Thêm xử lý khi ảnh gặp lỗi và không hiển thị được thì thay thể bằng ảnh khác
 - Viết hàm rút gọn description
+
+## <span style="color: #3498db">243.Pagination - bind click event</span>
+- Xử lý URL khi có và không có params
+- Tạo hàm chọn pagination, prev và next
+- Tạo từng hàm để handle prev event và next event
