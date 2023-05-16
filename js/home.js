@@ -13,6 +13,7 @@ function createPostElement(post) {
   const postTemplate = document.getElementById('postTemplate');
   if (!postTemplate) return;
 
+  // ! I don't understand this
   const liElement = postTemplate.content.firstElementChild.cloneNode(true);
   if (!liElement) return;
 
@@ -40,7 +41,7 @@ function createPostElement(post) {
     // console.log('test thumbnail');
 
     thumbnailElement.addEventListener('error', () => {
-      console.log('test error thumbnail');
+      // console.log('test error thumbnail');
       thumbnailElement.src = 'http://via.placeholder.com/1368x400';
     });
   }
@@ -62,12 +63,69 @@ function renderPostList(postList) {
   });
 }
 
+function handleFilterChange(filterName, filterValue) {
+  // update query params
+  const url = new URL(window.location);
+  url.searchParams.set(filterName, filterValue);
+  history.pushState({}, '', url);
+
+  // fetch API
+  // re-render post list
+}
+
+function handlePrevClick(e) {
+  e.preventDefault();
+  console.log('prev');
+}
+function handleNextClick(e) {
+  e.preventDefault();
+  console.log('next');
+}
+
+function initPagination() {
+  // bind click event for prev/next link
+  const ulPagination = document.getElementById('pagination');
+  if (!ulPagination) return;
+
+  // add click event for prev link
+  const prevLink = ulPagination.firstElementChild?.firstElementChild;
+  if (prevLink) {
+    prevLink.addEventListener('click', handlePrevClick);
+  }
+
+  // add click event for next link
+  const nextLink = ulPagination.lastElementChild?.lastElementChild;
+  if (nextLink) {
+    nextLink.addEventListener('click', handleNextClick);
+  }
+}
+
+function initUrl() {
+  // ! I don't understand this
+  const url = new URL(window.location);
+
+  // update search params if needed
+  if (!url.searchParams.get('_page')) url.searchParams.set('_page', 1);
+  if (!url.searchParams.get('_limit')) url.searchParams.set('_limit', 6);
+
+  // ! I don't understand this
+  history.pushState({}, '', url);
+}
+
 (async () => {
   try {
-    const queryParams = {
-      _page: 1,
-      _limit: 6,
-    };
+    initPagination();
+    initUrl();
+
+    // ! I don't understand this
+    const queryParams = new URLSearchParams(window.location.search);
+    // set default query params if not existed
+    console.log(queryParams.toString());
+
+    // const queryParams = {
+    //   _page: 1,
+    //   _limit: 6,
+    // };
     const { data, pagination } = await postApi.getAll(queryParams);
     // console.log(data);
     renderPostList(data);
