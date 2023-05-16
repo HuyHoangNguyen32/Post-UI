@@ -194,3 +194,9 @@ root
 - Xử lý URL khi có và không có params
 - Tạo hàm chọn pagination, prev và next
 - Tạo từng hàm để handle prev event và next event
+
+## <span style="color: #3498db">244.Pagination - Disable page links</span>
+- Tạo hàm render pagination
+- Lấy ra số trang đang đứng
+- Tính ra tổng số trang có
+- Enable / Disable prev btn và next btn
