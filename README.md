@@ -204,3 +204,12 @@ root
 ## <span style="color: #3498db">245.Pagination - refetch data on page change</span>
 - - Hoàn thiện hàm `handleFilterChange` để tuỳ chỉnh param nhận được, ngoài ra hàm này cũng sẽ đóng vai trò gọi tới hàm render lại dữ liệu
 - Làm logic cho 2 hàm prev và next
+
+## <span style="color: #3498db">246.Search  Posts with debounce</span>
+- `yarn add lodash.debounce` : cài đặt debounce
+- Thêm input search
+- Gọi tới input search và nhận lấy dữ liệu người dùng nhập vào
+- Tạo hàm initSearch
+- Gọi tới API để lấy post tương ứng sau khi người dùng nhập text 1 khoảng thời gian sử dụng debounce
+- Set trang kết quả trả về là trang số 1 bên trong hàm handleFilterChange
+- Giữ nguyên kết quả ô input ứng với key dù reload trình duyệt

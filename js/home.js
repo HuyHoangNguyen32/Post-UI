@@ -2,6 +2,7 @@ import postApi from './api/postApi';
 import { getUlPagination, setTextContent, truncateText } from './utils';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import debounce from 'lodash.debounce';
 
 // to use fromNow function
 dayjs.extend(relativeTime);
@@ -52,7 +53,8 @@ function createPostElement(post) {
 }
 
 function renderPostList(postList) {
-  if (!Array.isArray(postList) || postList.length === 0) return;
+  // if (!Array.isArray(postList) || postList.length === 0) return;
+  if (!Array.isArray(postList)) return;
 
   const ulElement = document.getElementById('postList');
   if (!ulElement) return;
@@ -91,6 +93,9 @@ async function handleFilterChange(filterName, filterValue) {
     // update query params
     const url = new URL(window.location);
     url.searchParams.set(filterName, filterValue);
+
+    if (filterName === 'title_like') url.searchParams.set('_page', 1);
+
     history.pushState({}, '', url);
 
     // fetch API
@@ -160,6 +165,22 @@ function initUrl() {
   history.pushState({}, '', url);
 }
 
+function initSearch() {
+  const searchInput = document.getElementById('searchInput');
+  if (!searchInput) return;
+
+  // set default values from query params
+  // title_like
+  const queryParams = new URLSearchParams(window.location.search);
+  if (queryParams.get('title_like')) {
+    searchInput.value = queryParams.get('title_like');
+  }
+
+  const debounceSearch = debounce((e) => handleFilterChange('title_like', e.target.value), 1000);
+
+  searchInput.addEventListener('input', debounceSearch);
+}
+
 (async () => {
   try {
     // attach click event for links
@@ -167,6 +188,9 @@ function initUrl() {
 
     // set default pagination (_page, _limit) on URL
     initUrl();
+
+    //
+    initSearch();
 
     // ! I don't understand this
     // render post list based URL params
