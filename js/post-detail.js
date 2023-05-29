@@ -18,7 +18,7 @@ function renderPostDetail(post) {
   // render hero image (imageUrl)
   const heroImage = document.getElementById('postHeroImage');
   if (heroImage) {
-    heroImage.style.backgroundImage = `url("${post.imageUrl} 555")`;
+    heroImage.style.backgroundImage = `url("${post.imageUrl}")`;
 
     // TODO: Fix this
     heroImage.addEventListener('error', () => {
@@ -36,7 +36,13 @@ function renderPostDetail(post) {
 }
 
 (async () => {
-  registerLightbox();
+  registerLightbox({
+    modalId: 'lightbox',
+    imgSelector: 'img[data-id="lightboxImg"]',
+    prevSelector: 'button[data-id="lightboxPrev"]',
+    nextSelector: 'button[data-id="lightboxNext"]',
+  });
+
   // get post id from URL
   // fetch post detail API
   // render post detail

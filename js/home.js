@@ -26,7 +26,6 @@ async function handleFilterChange(filterName, filterValue) {
     // ! I don't understand this
     const url = new URL(window.location);
 
-    // update search params if needed
     if (!url.searchParams.get('_page')) url.searchParams.set('_page', 1);
     if (!url.searchParams.get('_limit')) url.searchParams.set('_limit', 6);
 
@@ -34,7 +33,6 @@ async function handleFilterChange(filterName, filterValue) {
     history.pushState({}, '', url);
     const queryParams = url.searchParams;
 
-    // attach click event for links
     initPagination({
       elementId: 'pagination',
       defaultParams: queryParams,
@@ -46,14 +44,8 @@ async function handleFilterChange(filterName, filterValue) {
       defaultParams: queryParams,
       onChange: (value) => handleFilterChange('title_like', value),
     });
-    // console.log(queryParams.toString());
 
-    // const queryParams = {
-    //   _page: 1,
-    //   _limit: 6,
-    // };
     const { data, pagination } = await postApi.getAll(queryParams);
-    // console.log(data);
     renderPostList(data);
     renderPagination('pagination', pagination);
   } catch (error) {

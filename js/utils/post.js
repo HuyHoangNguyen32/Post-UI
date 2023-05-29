@@ -37,10 +37,8 @@ export function createPostElement(post) {
   const thumbnailElement = liElement.querySelector('[data-id="thumbnail"]');
   if (thumbnailElement) {
     thumbnailElement.src = post.imageUrl;
-    // console.log('test thumbnail');
 
     thumbnailElement.addEventListener('error', () => {
-      // console.log('test error thumbnail');
       thumbnailElement.src = 'http://via.placeholder.com/1368x400';
     });
   }
