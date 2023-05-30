@@ -23,13 +23,11 @@ async function handleFilterChange(filterName, filterValue) {
 
 (async () => {
   try {
-    // ! I don't understand this
     const url = new URL(window.location);
 
     if (!url.searchParams.get('_page')) url.searchParams.set('_page', 1);
     if (!url.searchParams.get('_limit')) url.searchParams.set('_limit', 6);
 
-    // ! I don't understand this
     history.pushState({}, '', url);
     const queryParams = url.searchParams;
 

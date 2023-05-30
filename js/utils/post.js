@@ -12,7 +12,6 @@ export function createPostElement(post) {
   const postTemplate = document.getElementById('postTemplate');
   if (!postTemplate) return;
 
-  // ! I don't understand this
   const liElement = postTemplate.content.firstElementChild.cloneNode(true);
   if (!liElement) return;
 
@@ -45,11 +44,28 @@ export function createPostElement(post) {
 
   // attach events
   // go to post detail when click on div.post-item
-  const divElement = liElement.firstElementChild
+  const divElement = liElement.firstElementChild;
   if (divElement) {
     divElement.addEventListener('click', (e) => {
-      window.location.assign(`/post-detail.html?id=${post.id}`)
-    })
+      // C1 : if event is triggered from menu -> ignore
+      const menu = liElement.querySelector('[data-id="menu"]');
+      if (menu && menu.contains(e.target)) {
+        console.log('parent ignore click');
+        return;
+      }
+
+      window.location.assign(`/post-detail.html?id=${post.id}`);
+    });
+  }
+
+  // add click event for edit button
+  const editButton = liElement.querySelector('[data-id="edit"]');
+  if (editButton) {
+    editButton.addEventListener('click', (e) => {
+      // C2 : prevent event bubbling to parent
+      // e.stopPropagation();
+      window.location.assign(`/add-edit-post.html?id=${post.id}`);
+    });
   }
 
   return liElement;
