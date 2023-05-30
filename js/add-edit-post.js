@@ -3,6 +3,7 @@
 #################################### */
 
 import postApi from './api/postApi';
+import { initPostForm } from './utils';
 
 (async () => {
   try {
@@ -19,6 +20,12 @@ import postApi from './api/postApi';
           imageUrl: '',
         };
 
+    initPostForm({
+      formId: 'postForm',
+      defaultValues,
+      onSubmit: (formValues) => console.log('submit', formValues)
+    })
+
     // * Cách 1 : viết tường minh
     // let defaultValues = {
     // title: '',
@@ -31,9 +38,9 @@ import postApi from './api/postApi';
     //   defaultValues = await postApi.getById(postId);
     // }
 
-    console.log('postId', postId);
-    console.log('mode', postId ? 'edit' : 'add');
-    console.log('defaultValues', defaultValues);
+    // console.log('postId', postId);
+    // console.log('mode', postId ? 'edit' : 'add');
+    // console.log('defaultValues', defaultValues);
   } catch (error) {
     console.log('failed to fetch post details:', error);
   }
