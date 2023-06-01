@@ -17,7 +17,7 @@ export function renderPagination(elementId, pagination) {
   if (_page >= totalPages) ulPagination.lastElementChild?.classList.add('disabled');
   else ulPagination.lastElementChild?.classList.remove('disabled');
 
-  console.log('render pagination');
+  // console.log('render pagination');
 }
 
 export function initPagination({ elementId, defaultParams, onChange }) {
@@ -34,7 +34,7 @@ export function initPagination({ elementId, defaultParams, onChange }) {
     prevLink.addEventListener('click', (e) => {
       e.preventDefault();
 
-      console.log('prev');
+      // console.log('prev');
 
       const page = Number.parseInt(ulPagination.dataset.page) || 1;
       if (page >= 2) return onChange?.(page - 1);
@@ -47,7 +47,7 @@ export function initPagination({ elementId, defaultParams, onChange }) {
     nextLink.addEventListener('click', (e) => {
       e.preventDefault();
 
-      console.log('next');
+      // console.log('next');
 
       const page = Number.parseInt(ulPagination.dataset.page) || 1;
       const totalPages = ulPagination.dataset.totalPages;

@@ -85,7 +85,3 @@ export function initPostForm({ formId, defaultValues, onSubmit }) {
     if (!validatePostForm(form, formValues)) return;
   });
 }
-
-
-const nowTime = new Date().getTime();
-console.log(nowTime);
