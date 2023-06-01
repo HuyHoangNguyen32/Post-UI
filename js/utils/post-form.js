@@ -1,4 +1,6 @@
-import { setFieldValue, setBackgroundImage } from './common';
+import { setFieldValue, setBackgroundImage, setTextContent } from './common';
+
+
 
 function setFormValues(form, formValues) {
   setFieldValue(form, '[name="title"]', formValues?.title);
@@ -20,11 +22,48 @@ function getFormValues(form) {
 
   // S2 : using form data
   const data = new FormData(form);
+
   for (const [key, value] of data) {
     formValues[key] = value;
   }
 
   return formValues;
+}
+
+function getTitleError(form) {
+  const titleElement = form.querySelector('[name="title"]');
+  if (!titleElement) return;
+
+  // required
+  if (titleElement.validity.valueMissing) return 'Please enter title';
+
+  // at least two words
+  if (titleElement.value.split(' ').filter((x) => !!x && x.length >= 3).length < 2) {
+    return 'Please enter at least two words of 3 characters';
+  }
+
+  return '';
+}
+
+function validatePostForm(form, formValues) {
+  // get errors
+  const errors = {
+    title: getTitleError(form),
+  };
+
+  // set errors
+  for (const key in errors) {
+    const element = form.querySelector(`[name="${key}"]`);
+    if (element) {
+      element.setCustomValidity(errors[key]);
+      setTextContent(element.parentElement, '.invalid-feedback', errors[key]);
+    }
+  }
+  // add was-validated class to form element
+  const isValid = form.checkValidity();
+  if (!isValid) form.classList.add('was-validated');
+
+  return isValid;
 }
 
 export function initPostForm({ formId, defaultValues, onSubmit }) {
@@ -38,11 +77,15 @@ export function initPostForm({ formId, defaultValues, onSubmit }) {
 
     // get form values
     const formValues = getFormValues(form);
-    console.log('formValues', formValues);
     // validation
 
     // if valid trigger submit callback
 
     // otherwise, show validation errors
+    if (!validatePostForm(form, formValues)) return;
   });
 }
+
+
+const nowTime = new Date().getTime();
+console.log(nowTime);
