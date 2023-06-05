@@ -1,14 +1,91 @@
 import { setFieldValue, setBackgroundImage, setTextContent } from './common';
+import * as yup from 'yup';
 
+// function getTitleError(form) {
+//   const titleElement = form.querySelector('[name="title"]');
+//   if (!titleElement) return;
 
+//   // required
+//   if (titleElement.validity.valueMissing) return 'Please enter title';
 
-function setFormValues(form, formValues) {
-  setFieldValue(form, '[name="title"]', formValues?.title);
-  setFieldValue(form, '[name="description"]', formValues?.description);
-  setFieldValue(form, '[name="author"]', formValues?.author);
+//   // at least two words
+//   if (titleElement.value.split(' ').filter((x) => !!x && x.length >= 3).length < 2) {
+//     return 'Please enter at least two words of 3 characters';
+//   }
 
-  setFieldValue(form, '[name="imageUrl"]', formValues?.imageUrl);
-  setBackgroundImage(document, '#postHeroImage', formValues?.imageUrl);
+//   return '';
+// }
+
+function getPostSchema() {
+  return yup.object().shape({
+    title: yup.string().required('please enter title'),
+    author: yup
+      .string()
+      .required('please enter author')
+      .test(
+        'at-least-two-words',
+        'please enter at least two words',
+        (value) => value.split(' ').filter((x) => !!x && x.length >= 3).length >= 2
+      ),
+    description: yup.string(),
+  });
+}
+
+function setFieldError(form, name, error) {
+  const element = form.querySelector(`[name="${name}"]`);
+  if (element) {
+    element.setCustomValidity(error);
+    setTextContent(element.parentElement, '.invalid-feedback', error);
+  }
+}
+
+async function validatePostForm(form, formValues) {
+  // get errors
+  // const errors = {
+  //   title: getTitleError(form),
+  // };
+
+  // // set errors
+  // for (const key in errors) {
+  //   const element = form.querySelector(`[name="${key}"]`);
+  //   if (element) {
+  //     element.setCustomValidity(errors[key]);
+  //     setTextContent(element.parentElement, '.invalid-feedback', errors[key]);
+  //   }
+  // }
+
+  try {
+    // reset previous errors
+    ['title', 'author'].forEach((name) => setFieldError(form, name, ''));
+
+    // start validation
+    const schema = getPostSchema();
+    await schema.validate(formValues, { abortEarly: false });
+  } catch (error) {
+    console.log(error.name);
+    console.log(error.inner);
+
+    const errorLog = {};
+
+    if (error.name === 'ValidationError' && Array.isArray(error.inner)) {
+      for (const validationError of error.inner) {
+        const name = validationError.path;
+
+        // ignore if the field is already logged
+        if (errorLog[name]) continue;
+
+        // set field error and mark as logged
+        setFieldError(form, name, validationError.message);
+        errorLog[name] = true;
+      }
+    }
+  }
+
+  // add was-validated class to form element
+  const isValid = form.checkValidity();
+  if (!isValid) form.classList.add('was-validated');
+
+  return isValid;
 }
 
 function getFormValues(form) {
@@ -30,40 +107,13 @@ function getFormValues(form) {
   return formValues;
 }
 
-function getTitleError(form) {
-  const titleElement = form.querySelector('[name="title"]');
-  if (!titleElement) return;
+function setFormValues(form, formValues) {
+  setFieldValue(form, '[name="title"]', formValues?.title);
+  setFieldValue(form, '[name="description"]', formValues?.description);
+  setFieldValue(form, '[name="author"]', formValues?.author);
 
-  // required
-  if (titleElement.validity.valueMissing) return 'Please enter title';
-
-  // at least two words
-  if (titleElement.value.split(' ').filter((x) => !!x && x.length >= 3).length < 2) {
-    return 'Please enter at least two words of 3 characters';
-  }
-
-  return '';
-}
-
-function validatePostForm(form, formValues) {
-  // get errors
-  const errors = {
-    title: getTitleError(form),
-  };
-
-  // set errors
-  for (const key in errors) {
-    const element = form.querySelector(`[name="${key}"]`);
-    if (element) {
-      element.setCustomValidity(errors[key]);
-      setTextContent(element.parentElement, '.invalid-feedback', errors[key]);
-    }
-  }
-  // add was-validated class to form element
-  const isValid = form.checkValidity();
-  if (!isValid) form.classList.add('was-validated');
-
-  return isValid;
+  setFieldValue(form, '[name="imageUrl"]', formValues?.imageUrl);
+  setBackgroundImage(document, '#postHeroImage', formValues?.imageUrl);
 }
 
 export function initPostForm({ formId, defaultValues, onSubmit }) {

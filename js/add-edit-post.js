@@ -23,8 +23,8 @@ import { initPostForm } from './utils';
     initPostForm({
       formId: 'postForm',
       defaultValues,
-      onSubmit: (formValues) => console.log('submit', formValues)
-    })
+      onSubmit: (formValues) => console.log('submit', formValues),
+    });
 
     // * Cách 1 : viết tường minh
     // let defaultValues = {
@@ -45,3 +45,5 @@ import { initPostForm } from './utils';
     console.log('failed to fetch post details:', error);
   }
 })();
+
+console.log('hello world');
