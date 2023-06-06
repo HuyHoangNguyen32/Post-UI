@@ -1,4 +1,4 @@
-import { setFieldValue, setBackgroundImage, setTextContent } from './common';
+import { setFieldValue, setBackgroundImage, setTextContent, randomNumber } from './common';
 import * as yup from 'yup';
 
 // function getTitleError(form) {
@@ -28,6 +28,10 @@ function getPostSchema() {
         (value) => value.split(' ').filter((x) => !!x && x.length >= 3).length >= 2
       ),
     description: yup.string(),
+    imageUrl: yup
+      .string()
+      .required('please random a background image')
+      .url('please enter a valid URL'),
   });
 }
 
@@ -56,7 +60,7 @@ async function validatePostForm(form, formValues) {
 
   try {
     // reset previous errors
-    ['title', 'author'].forEach((name) => setFieldError(form, name, ''));
+    ['title', 'author', 'imageUrl'].forEach((name) => setFieldError(form, name, ''));
 
     // start validation
     const schema = getPostSchema();
@@ -92,17 +96,17 @@ function getFormValues(form) {
   const formValues = {};
 
   // S1 : query each input and add to values object
-  // ['title', 'description', 'author', 'imageUrl'].forEach((name) => {
-  //   const field = form.querySelector(`[name="${name}"]`);
-  //   if (field) formValues[name] = field.value;
-  // });
+  ['title', 'description', 'author', 'imageUrl'].forEach((name) => {
+    const field = form.querySelector(`[name="${name}"]`);
+    if (field) formValues[name] = field.value;
+  });
 
   // S2 : using form data
-  const data = new FormData(form);
+  // const data = new FormData(form);
 
-  for (const [key, value] of data) {
-    formValues[key] = value;
-  }
+  // for (const [key, value] of data) {
+  //   formValues[key] = value;
+  // }
 
   return formValues;
 }
@@ -132,13 +136,30 @@ function hideLoading(form) {
   }
 }
 
+function initRandomImage(form) {
+  const randomButton = document.getElementById('postChangeImage');
+  if (!randomButton) return;
+
+  randomButton.addEventListener('click', () => {
+    // random ID
+    // build URL
+    const imageUrl = `https://picsum.photos/id/${randomNumber(1000)}/1368/400`;
+
+    // set image url input + background
+    setFieldValue(form, '[name="imageUrl"]', imageUrl); // hidden field
+    setBackgroundImage(document, '#postHeroImage', imageUrl);
+  });
+}
+
 export function initPostForm({ formId, defaultValues, onSubmit }) {
   const form = document.getElementById(formId);
   if (!form) return;
 
   let submitting = false;
-
   setFormValues(form, defaultValues);
+
+  // init events
+  initRandomImage(form);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -161,9 +182,7 @@ export function initPostForm({ formId, defaultValues, onSubmit }) {
 
     // otherwise, show validation errors
     const idValid = await validatePostForm(form, formValues);
-    if (!idValid) return;
-
-    await onSubmit?.(formValues);
+    if (idValid) await onSubmit?.(formValues);
 
     hideLoading(form);
     submitting = false;
