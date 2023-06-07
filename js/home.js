@@ -1,14 +1,21 @@
 import postApi from './api/postApi';
-import { initPagination, initSearch, renderPostList, renderPagination } from './utils';
+import {
+  initPagination,
+  initSearch,
+  renderPostList,
+  renderPagination,
+  registerLightbox,
+  toast,
+} from './utils';
 
 async function handleFilterChange(filterName, filterValue) {
   try {
     // update query params
     const url = new URL(window.location);
-    url.searchParams.set(filterName, filterValue);
+    if (filterName) url.searchParams.set(filterName, filterValue);
 
+    // reset page if needed
     if (filterName === 'title_like') url.searchParams.set('_page', 1);
-
     history.pushState({}, '', url);
 
     // fetch API
@@ -21,6 +28,25 @@ async function handleFilterChange(filterName, filterValue) {
   }
 }
 
+function registerPostDeleteEvent() {
+  document.addEventListener('post-delete', async (e) => {
+    try {
+      const post = event.detail;
+      const message = `Are you sure you want to delete "${post.title}" ?`;
+      if (window.confirm(message)) {
+        await postApi.remove(post.id);
+        await handleFilterChange();
+
+        toast.success('Remove post successfully');
+      }
+    } catch (error) {
+      console.log('failed to delete post: ', error.message);
+      toast.error(error.message);
+    }
+    console.log('remove post click', e.detail);
+  });
+}
+
 (async () => {
   try {
     const url = new URL(window.location);
@@ -30,6 +56,8 @@ async function handleFilterChange(filterName, filterValue) {
 
     history.pushState({}, '', url);
     const queryParams = url.searchParams;
+
+    registerPostDeleteEvent();
 
     initPagination({
       elementId: 'pagination',
