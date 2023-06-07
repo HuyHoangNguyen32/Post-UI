@@ -33,7 +33,7 @@ function getPostSchema() {
       .test('required', 'please select an image to upload', (file) => Boolean(file?.name))
       .test('max-1mb', 'the image is too large (max 1mb)', (file) => {
         const fileSize = file?.size || 0;
-        const MAX_SIZE = 1 * 1024 * 1024;
+        const MAX_SIZE = 5 * 1024 * 1024;
         return fileSize <= MAX_SIZE;
       }),
     // imageUrl: yup
