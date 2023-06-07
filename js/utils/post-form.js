@@ -30,7 +30,12 @@ function getPostSchema() {
     description: yup.string(),
     image: yup
       .mixed()
-      .test('required', 'please select an image to upload', (value) => Boolean(value?.name)),
+      .test('required', 'please select an image to upload', (file) => Boolean(file?.name))
+      .test('max-1mb', 'the image is too large (max 1mb)', (file) => {
+        const fileSize = file?.size || 0;
+        const MAX_SIZE = 1 * 1024 * 1024;
+        return fileSize <= MAX_SIZE;
+      }),
     // imageUrl: yup
     //   .string()
     //   .required('please random a background image')
@@ -110,6 +115,8 @@ function getFormValues(form) {
   for (const [key, value] of data) {
     formValues[key] = value;
   }
+
+  // console.log('Form data', formValues);
 
   return formValues;
 }
