@@ -28,10 +28,13 @@ function getPostSchema() {
         (value) => value.split(' ').filter((x) => !!x && x.length >= 3).length >= 2
       ),
     description: yup.string(),
-    imageUrl: yup
-      .string()
-      .required('please random a background image')
-      .url('please enter a valid URL'),
+    image: yup
+      .mixed()
+      .test('required', 'please select an image to upload', (value) => Boolean(value?.name)),
+    // imageUrl: yup
+    //   .string()
+    //   .required('please random a background image')
+    //   .url('please enter a valid URL'),
   });
 }
 
@@ -60,7 +63,7 @@ async function validatePostForm(form, formValues) {
 
   try {
     // reset previous errors
-    ['title', 'author', 'imageUrl'].forEach((name) => setFieldError(form, name, ''));
+    ['title', 'author', 'image'].forEach((name) => setFieldError(form, name, ''));
 
     // start validation
     const schema = getPostSchema();
@@ -96,17 +99,17 @@ function getFormValues(form) {
   const formValues = {};
 
   // S1 : query each input and add to values object
-  ['title', 'description', 'author', 'imageUrl'].forEach((name) => {
-    const field = form.querySelector(`[name="${name}"]`);
-    if (field) formValues[name] = field.value;
-  });
+  // ['title', 'description', 'author', 'image'].forEach((name) => {
+  //   const field = form.querySelector(`[name="${name}"]`);
+  //   if (field) formValues[name] = field.value;
+  // });
 
   // S2 : using form data
-  // const data = new FormData(form);
+  const data = new FormData(form);
 
-  // for (const [key, value] of data) {
-  //   formValues[key] = value;
-  // }
+  for (const [key, value] of data) {
+    formValues[key] = value;
+  }
 
   return formValues;
 }

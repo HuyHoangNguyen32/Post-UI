@@ -101,7 +101,8 @@
                 <textarea class="form-control" name="description" rows="3"></textarea>
               </div>
 
-              <div class="mb-3">
+              <!-- * Select image with picsum or upload use radio button -->
+              <!-- <div class="mb-3">
                 <div class="form-check">
                   <input
                     class="form-check-input"
@@ -128,9 +129,10 @@
                     Upload image from your computer</label
                   >
                 </div>
-              </div>
+              </div> -->
 
-              <div class="form-group mb-3" data-id="imageSource" data-image-source="picsum">
+              <!-- * Random Image from Picsum -->
+              <!-- <div class="form-group mb-3" data-id="imageSource" data-image-source="picsum">
                 <label for="postChangeImage">Image</label>
                 <small id="passwordHelpBlock" class="form-text text-muted">
                   We&apos;re using
@@ -146,11 +148,18 @@
                 </div>
 
                 <div class="invalid-feedback"></div>
-              </div>
+              </div> -->
 
-              <div class="input-group mb-3" data-id="imageSource" data-image-source="upload" hidden>
-                <input name="image" type="file" class="form-control" id="uploadImage" accept="image/*">
+              <div class="input-group mb-3" data-id="imageSource" data-image-source="upload">
+                <input
+                  name="image"
+                  type="file"
+                  class="form-control"
+                  id="uploadImage"
+                  accept="image/*"
+                />
                 <label class="input-group-text" for="uploadImage">Upload</label>
+                <div class="invalid-feedback"></div>
               </div>
 
               <div class="text-center">
